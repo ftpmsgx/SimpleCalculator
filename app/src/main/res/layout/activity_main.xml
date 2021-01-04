@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/expression"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="right"
+        android:textColor="#68B4CC"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/result"
+        android:layout_gravity="right"
+        android:textColor="#68B4CC"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/test"
+        android:layout_gravity="right"
+        android:textColor="#68B4CC"
+        android:editable="false" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/opleft"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="("
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opright"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=")"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opsub"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="-"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opand"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="+"
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/num7"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="7"
+            android:textSize="40dp" />
+
+        <Button
+            android:id="@+id/num8"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="8"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/num9"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="9"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opdiv"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="÷"
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/num4"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="4"
+            android:textSize="40dp" />
+
+        <Button
+            android:id="@+id/num5"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="5"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/num6"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="6"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opmult"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="×"
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/num1"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="1"
+            android:textSize="40dp" />
+
+        <Button
+            android:id="@+id/num2"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="2"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/num3"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="3"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opmod"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="%"
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/num0"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="0"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/num00"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="00"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/numpoint"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="."
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/opequal"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="="
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/c"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="C"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/back"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="←"
+            android:textSize="40dp"/>
+
+        <Button
+            android:id="@+id/exit"
+            android:onClick="onClick"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="⏏"
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/displayException"
+        android:layout_gravity="right"
+        android:textColor="#E36F39"
+        android:editable="false" />
+
+</LinearLayout>
