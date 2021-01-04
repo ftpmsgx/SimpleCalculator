@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static String ex = "";  // 异常字符串
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         for(int i = 0; i < ids.length; i++) {
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public String bracketsCat(String brackets) {
+    private String bracketsCat(String brackets) {
         if(opFlag) {
             opFlag = false;
             return ")" + brackets;
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return brackets;
     }
     // 字符串连接
-    public void strCat(String sTmp) {
+    private void strCat(String sTmp) {
         if(sTmp.equals("=")) {
             flag = true;
         } else {
