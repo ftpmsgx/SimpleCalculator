@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean flag = false;   // 是否开始计算的标志
     private String res = "0.00";    // res，全：result，结果字符串
     private static String ex = "";  // 异常字符串
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (sTmp.equals("=")) {
             flag = true;
         } else {
-            expression += sTmp;
+            if (expression.isEmpty()) {
+                expression += sTmp;
+            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && !isNumericzidai(sTmp)) {
+                expression += sTmp;
+            } else if (!isNumericzidai(expression.substring(expression.length() - 1)) && isNumericzidai(sTmp)) {
+                expression += sTmp;
+            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && isNumericzidai(sTmp)) {
+                expression += sTmp;
+            }
         }
     }
 
