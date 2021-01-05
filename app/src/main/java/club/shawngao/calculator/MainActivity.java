@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        // 将num和op都追加到RPN内
         rpn.addAll(num);
         rpn.addAll(op);
         // 对逆波兰式进行解析运算
