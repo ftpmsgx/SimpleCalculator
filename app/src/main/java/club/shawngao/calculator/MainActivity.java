@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        for(int i = 0; i < ids.length; i++) {
+        for (int i = 0; i < ids.length; i++) {
             buttons[i] = findViewById(ids[i]);
             buttons[i].setOnClickListener(this);
         }
@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = view.getId();
         Button button = (Button)view.findViewById(id);
         String str = button.getText().toString();
-        if((!isNumericzidai(str)) && !(str.equals("."))) {
-            if(str.equals("×")) {
+        if ((!isNumericzidai(str)) && !(str.equals("."))) {
+            if (str.equals("×")) {
                 str = "*";
             }
-            if(str.equals("÷")) {
+            if (str.equals("÷")) {
                 str = "/";
             }
         }
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 System.exit(0);
         }
         strCat(str);
-        if(flag) {
+        if (flag) {
             res = calcu();
             resultTextView.setText("计算结果:" + res);
             eTextView.setText("异常:\n" + ex);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // 字符串连接
     private void strCat(String sTmp) {
-        if(sTmp.equals("=")) {
+        if (sTmp.equals("=")) {
             flag = true;
         } else {
             expression += sTmp;
@@ -125,14 +125,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 用来取出字符串中的单个字符
         int i, j;
         char s;
-        if(expression.length() <= 1) {
+        if (expression.length() <= 1) {
             return "0.00";
         }
-        for(int w = 0; w < expression.length(); w++) {
+        for (int w = 0; w < expression.length(); w++) {
             s = expression.charAt(w);
             // 如果s存放的是数字，则需要在opTmp处于非空的情况下清空，且需要将操作符之间的数字链接起来（主要用于多位数）
-            if((s >= '0' && s <= '9') || s == '.') {
-                if(!opTmp.equals("")) {
+            if ((s >= '0' && s <= '9') || s == '.') {
+                if (!opTmp.equals("")) {
                     opTmp = "";
                 }
                 numTmp.append(s);
@@ -141,14 +141,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // 判断s是否存放的是等号，如果是，则跳出，即标志为算式的结束
             // 判断s存放的是否为"回括号"，如果是，则将s存入opTmp中，再将opTmp追加到al字符串动态数组的后方
             // 其余的情况，则将s存入opTmp中，再将opTmp追加到al字符串动态数组的后方
-            if(!(s >= '0' && s <= '9') && s != '.') {
-                if(!numTmp.toString().equals("")) {
+            if (!(s >= '0' && s <= '9') && s != '.') {
+                if (!numTmp.toString().equals("")) {
                     al.add(numTmp.toString());
                     numTmp = new StringBuilder();
                 }
-                if(s == '=') {
+                if (s == '=') {
                     break;
-                } else if(s == ')' || s == '）'){
+                } else if (s == ')' || s == '）'){
                     opTmp = s + "";
                     al.add(opTmp);
                 } else {
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-        if(!isNumericzidai(al.get(0))) {
+        if (!isNumericzidai(al.get(0))) {
             al.add(0, "0");
         }
         // 中缀表达式转换逆波兰式
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (isNumericzidai(al.get(i))) {
                 num.add(al.get(i));
             } else {
-                for(;;) {
+                for (;;) {
                     if (op.isEmpty() || op.get(op.size() - 1).equals("(")) {
                         op.add(al.get(i));
                         break;
