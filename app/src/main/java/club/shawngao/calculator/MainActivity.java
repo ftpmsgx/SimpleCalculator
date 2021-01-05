@@ -161,11 +161,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             al.add(0, "0");
         }
         // 中缀表达式转换逆波兰式
+        // 从头至尾扫描中缀表达式
         first: for (i = 0; i <= al.size() - 1; i++) {
+            // 如果是操作数，直接放入num中
             if (isNumericzidai(al.get(i))) {
                 num.add(al.get(i));
             } else {
+                //如果是运算符
                 for (;;) {
+                    // 如果op为空，或者op末尾元素是左括号，则直接将运算符放入op中
+                    // 否则，再看当前运算符的优先级是否与op中最高的元素的优先级高
+
+                    // 如果高，则直接将运算符放入op中
+                    // 如果以上2个条件都不满足，则将op的运算符移动至num的末尾
+                    // 并再次与op的末尾元素进行比较
+
+                    // 如果遇到括号，则判断是左括号还是右括号
+                    // 如果是左括号，则将左括号直接放入op中
+                    // 如果是右括号，则将op中左括号后面的运算符反序移动至num中，并删除左括号
                     if (op.isEmpty() || op.get(op.size() - 1).equals("(")) {
                         op.add(al.get(i));
                         break;
