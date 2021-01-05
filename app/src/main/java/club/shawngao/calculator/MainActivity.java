@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static String expression = "0.00";  // 算式字符串，默认0.00
     private boolean flag = false;   // 是否开始计算的标志
     private String res = "0.00";    // res，全：result，结果字符串
-    private boolean opFlag = false; // 操作符标志位，用来处理括号，即是否添加括号
     private static String ex = "";  // 异常字符串
     @SuppressLint("SetTextI18n")
     @Override
@@ -55,22 +54,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button = (Button)view.findViewById(id);
         String str = button.getText().toString();
         if((!isNumericzidai(str)) && !(str.equals("."))) {
-            if(str.equals("×") && opFlag) {
-                str = bracketsCat("*");
-            } else if(str.equals("÷") && opFlag) {
-                str = bracketsCat("/");
-            } else {
-                str = bracketsCat(str);
+            if(str.equals("×")) {
+                str = "*";
+            }
+            if(str.equals("÷")) {
+                str = "/";
             }
         }
         switch (str) {
-            case "×":
-                str = "*";
-                break;
-            case "÷":
-                str = "*(1/";
-                opFlag = true;
-                break;
             case "C":
                 textView.setText("算式:" + "0.00");
                 resultTextView.setText("计算结果:" + "0.00");
@@ -89,10 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case "⏏":
                 finish();
                 System.exit(0);
-            case "-":
-                str = "(-";
-                opFlag = true;
-                break;
         }
         strCat(str);
         if(flag) {
@@ -108,13 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private String bracketsCat(String brackets) {
-        if(opFlag) {
-            opFlag = false;
-            return ")" + brackets;
-        }
-        return brackets;
-    }
     // 字符串连接
     private void strCat(String sTmp) {
         if(sTmp.equals("=")) {
@@ -138,11 +118,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayList<String> al = new ArrayList<>();
         ArrayList<String> rpn = new ArrayList<>();
         ArrayList<String> op = new ArrayList<>();
+        ArrayList<String> num = new ArrayList<>();
         // numTmp 存放临时的数字字符, opTmp即存放临时的操作符
         StringBuilder numTmp = new StringBuilder();
         String opTmp = "";
         // 用来取出字符串中的单个字符
-        int i;
+        int i, j;
         char s;
         if(expression.length() <= 1) {
             return "0.00";
@@ -180,39 +161,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             al.add(0, "0");
         }
         // 中缀表达式转换逆波兰式
-        for(i = 0; i < al.size(); i++) {
-            if(al.get(i).equals("(") || al.get(i).equals("（")) {
-                op.add(al.get(i));
-                continue;
-            }
-            if(al.get(i).equals(")") || al.get(i).equals("）")) {
-                int j = op.size() - 1;
-                while(j >= 0) {
-                    if(op.get(j).equals("(") || op.get(j).equals("（")) {
-                        j--;
-                        continue;
+        first: for (i = 0; i <= al.size() - 1; i++) {
+            if (isNumericzidai(al.get(i))) {
+                num.add(al.get(i));
+            } else {
+                for(;;) {
+                    if (op.isEmpty() || op.get(op.size() - 1).equals("(")) {
+                        op.add(al.get(i));
+                        break;
+                    } else if (JudgmentPriority(al.get(i)) > JudgmentPriority(op.get(op.size() - 1))) {
+                        op.add(al.get(i));
+                        break;
+                    } else if (al.get(i).equals("=")) {
+                        break first;
+                    } else if (al.get(i).equals("(")) {
+                        op.add(al.get(i));
+                        break;
+                    } else if (al.get(i).equals(")")){
+                        for (j = op.size() - 1; j >= 0; j--) {
+                            if (op.get(j).equals("(")) {
+                                op.remove(j);
+                                break;
+                            }
+                            num.add(op.get(j));
+                            op.remove(j);
+                        }
+                        break;
+                    } else {
+                        num.add(op.get(op.size() - 1));
+                        op.remove(op.size() - 1);
                     }
-                    rpn.add(op.get(j));
-                    j--;
                 }
-                op.clear();
-                continue;
-            }
-            if(al.get(i).equals("*") || al.get(i).equals("/") || al.get(i).equals("%")) {
-                op.add(al.get(i));
-                continue;
-            }
-            if(al.get(i).equals("+") || al.get(i).equals("-")) {
-                op.add(al.get(i));
-                continue;
-            }
-            if(isNumericzidai(al.get(i))) {
-                rpn.add(al.get(i));
             }
         }
-        for(int j = op.size() - 1; j >= 0; j--) {
-            rpn.add(op.get(j));
-        }
+        rpn.addAll(num);
+        rpn.addAll(op);
         // 对逆波兰式进行解析运算
         String operator = "+-%*/";
         Stack<Double> stack = new Stack<>(); // 栈
@@ -243,6 +226,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return String.valueOf(stack.pop());
+    }
+
+    /**
+     * 判定优先级
+     * @param op    操作符
+     * @return  返回优先级
+     */
+    public static int JudgmentPriority(String op) {
+        switch (op) {
+            case "+":
+            case "-":   return 1;
+            case "*":
+            case "/":   return 2;
+            default:    return 0;
+        }
     }
 
     /**
