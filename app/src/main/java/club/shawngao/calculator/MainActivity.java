@@ -251,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (op) {
             case "+":
             case "-":   return 1;
+            case "%":
             case "*":
             case "/":   return 2;
             default:    return 0;
