@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     // 定义按钮的数组
-    private Button[] buttons = new Button[23];
+    private Button[] buttons = new Button[24];
     // 定义按钮id数组
     private int[] ids = new int[]{R.id.opleft, R.id.opright, R.id.opmult, R.id.opdiv, R.id.opand,
             R.id.opsub, R.id.opmod, R.id.opequal, R.id.num0, R.id.num00, R.id.num1, R.id.num2, R.id.num3,
@@ -54,15 +54,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = view.getId();
         Button button = (Button)view.findViewById(id);
         String str = button.getText().toString();
-        if ((!isNumericzidai(str)) && !(str.equals("."))) {
-            if (str.equals("×")) {
-                str = "*";
-            }
-            if (str.equals("÷")) {
-                str = "/";
-            }
-        }
         switch (str) {
+            case "×":
+                str = "*";
+                break;
+            case "÷":
+                str = "/";
+                break;
             case "C":
                 textView.setText("算式:" + "0.00");
                 resultTextView.setText("计算结果:" + "0.00");
@@ -101,13 +99,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (sTmp.equals("=")) {
             flag = true;
         } else {
-            if (expression.isEmpty()) {
+            if (expression.isEmpty()) { // 空字符串
                 expression += sTmp;
-            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && !isNumericzidai(sTmp)) {
+            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && !isNumericzidai(sTmp)) {    // 上一个字符串是数字，且sTmp非数字
                 expression += sTmp;
-            } else if (!isNumericzidai(expression.substring(expression.length() - 1)) && isNumericzidai(sTmp)) {
+            } else if (!isNumericzidai(expression.substring(expression.length() - 1)) && isNumericzidai(sTmp)) {    // 上一个字符串非数字，且sTmp是数字
                 expression += sTmp;
-            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && isNumericzidai(sTmp)) {
+            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && isNumericzidai(sTmp)) {     // 上一个是数字，且sTmp也是数字
+                expression += sTmp;
+            } else if (!isNumericzidai(expression.substring(expression.length() - 1)) && sTmp.equals("(")) {
+                expression += sTmp;
+            } else if (isNumericzidai(expression.substring(expression.length() - 1)) && sTmp.equals(")")) {
+                expression += sTmp;
+            } else if (expression.substring(expression.length() - 1).equals(")") && !isNumericzidai(sTmp)) {
+                expression += sTmp;
+            } else if (expression.substring(expression.length() - 1).equals("(") && isNumericzidai(sTmp)) {
                 expression += sTmp;
             }
         }
